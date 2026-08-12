@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Menu</title>
+  <link rel="stylesheet" href="/assets/app.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow" data-i18n="tagline">Delivery &amp; Pickup</p>
+        <h1>Fresh Seafood</h1>
+      </div>      <div id="lang-switcher" class="lang-switcher">
+        <select id="lang-select" class="lang-select" aria-label="Language">
+          <option value="en">🇬🇧 EN</option>
+          <option value="km">🇰🇭 KH</option>
+          <option value="zh">🇨🇳 中文</option>
+        </select>
+      </div>
+    </header>
+    <label class="search-box"><span data-i18n="search_menu">Search menu</span><input id="search" type="search" placeholder="Rice, noodles, drinks..." autocomplete="off"></label>
+    <nav id="categories" class="category-tabs" aria-label="Categories"></nav>
+    <section id="menu" class="menu-grid" aria-live="polite"></section>
+  </main>
+  <aside id="cart-panel" class="cart-panel" aria-hidden="true">
+    <div class="cart-header">
+      <h2 data-i18n="your_cart">Your cart</h2>
+      <button id="close-cart" type="button" aria-label="Close cart">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <div id="cart-items" class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-footer-row">
+        <span class="total-label" data-i18n="total">Total</span>
+        <span id="cart-total" class="total-amount">$0.00</span>
+      </div>
+      <button id="checkout" class="primary-button" type="button" data-i18n="review_payment_and_address">Review payment and address</button>
+    </div>
+  </aside>
+  <div id="backdrop" class="backdrop" hidden></div>
+  <button id="cart-button" class="cart-button-floating" type="button" aria-label="View your cart">
+    <span class="cart-badge" id="cart-count-floating">0</span>
+    <span data-i18n="view_cart">View cart</span>
+    <span id="cart-total-floating" style="font-weight: 800;">$0.00</span>
+  </button>
+  <div id="fly-clone" class="fly-clone" aria-hidden="true"></div>
+  <div id="detail-sheet" class="detail-sheet" aria-hidden="true">
+    <button class="detail-close" type="button" aria-label="Close">&times;</button>
+    <img id="detail-image" src="" alt="">
+  </div>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="/assets/app.js"></script>
+</body>
+</html>

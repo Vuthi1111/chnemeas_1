@@ -1,0 +1,2 @@
+ALTER TABLE menu_items
+ADD COLUMN IF NOT EXISTS photo_url TEXT;

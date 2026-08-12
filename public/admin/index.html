@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="/admin/style.css">
+  <style>
+    :root { --tg-theme-bg-color: #ffffff; --tg-theme-text-color: #27251f; --tg-theme-button-color: #2b7a2b; --tg-theme-button-text-color: #ffffff; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <nav class="admin-nav">
+      <h1>Admin Panel</h1>
+      <div class="nav-links">
+        <button class="nav-btn" data-view="dashboard">Dashboard</button>
+        <button class="nav-btn" data-view="orders">Orders</button>
+        <button class="nav-btn" data-view="menu">Menu</button>
+        <button class="nav-btn" data-view="refunds">Refunds</button>
+        <button class="lang-toggle" id="lang-toggle" title="Switch language">🇰🇭/🇺🇸</button>
+      </div>
+    </nav>
+    <main id="view-container"></main>
+  </div>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
+    try { if (window.Telegram?.WebApp) { Telegram.WebApp.ready(); Telegram.WebApp.expand(); } } catch(e) {}
+  </script>
+  <script src="/admin/app.js"></script>
+</body>
+</html>
