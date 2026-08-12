@@ -22,7 +22,7 @@ function normalizeUrl(url) {
   if (parsed.username !== 'postgres') return url;
 
   // Extract project ref from SUPABASE_URL env var (or hardcoded fallback)
-  const supabaseUrl = process.env.SUPABASE_URL || 'https://brnrhhlcaoujlmgzxynq.supabase.co';
+  const supabaseUrl = process.env.SUPABASE_URL;
   const projectRef = supabaseUrl.match(/https:\/\/([^.]+)\.supabase\.co/)?.[1];
   if (!projectRef) return url; // can't fix — should not happen
 

@@ -13,8 +13,8 @@ export default async function handler(request, response) {
   }
 
   try {
-    const supabaseUrl = process.env.SUPABASE_URL || 'https://brnrhhlcaoujlmgzxynq.supabase.co';
-    const supabaseKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJybnJoaGxjYW91amxtZ3p4eW5xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQzODYyNzAsImV4cCI6MjA5OTk2MjI3MH0.AOJyhDljzDQh8eXJ6wpUtJiLJS9i7A4nVDg1kEvwoUo';
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_ANON_KEY;
 
     const pool = getPool();
 
