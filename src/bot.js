@@ -194,7 +194,20 @@ export function getBot() {
   });
 
   bot.hears(hearAny('help'), async (ctx) => {
-    await ctx.reply(ctx.t('help_text'), customerReplyKeyboard(ctx.lang, ctx.chat.id));
+    if (await isAdminUser(ctx.chat.id)) {
+      await ctx.reply(ctx.t('help_admin'));
+    } else {
+      await ctx.reply(ctx.t('help_text'), customerReplyKeyboard(ctx.lang, ctx.chat.id));
+    }
+  });
+
+  // ─── /help — shows all commands (admin/owner get the full admin list) ───
+  bot.command('help', async (ctx) => {
+    if (await isAdminUser(ctx.chat.id)) {
+      await ctx.reply(ctx.t('help_admin'));
+    } else {
+      await ctx.reply(ctx.t('help_text'), customerReplyKeyboard(ctx.lang, ctx.chat.id));
+    }
   });
 
   // ─── Settings button ───
@@ -228,14 +241,11 @@ export function getBot() {
   });
 
   // ─── Admin management commands ───
-  function isOwner(ctx) {
-    const ownerId = process.env.ADMIN_CHAT_ID;
-    return ownerId && String(ctx.chat?.id) === String(ownerId);
-  }
-
+  // Owner and admins share the same permissions; management commands are
+  // gated by isAdminUser() so any admin (not just the owner) can manage the list.
   bot.command('add_admin', async (ctx) => {
-    if (!isOwner(ctx)) {
-      return ctx.reply(ctx.t('only_owner_add'));
+    if (!(await isAdminUser(ctx.chat.id))) {
+      return ctx.reply(ctx.t('not_authorized_admin'));
     }
     const target = ctx.message.text.split(' ').slice(1).join(' ').trim();
     if (!target) return ctx.reply(ctx.t('usage_add_admin'));
@@ -262,8 +272,8 @@ export function getBot() {
   });
 
   bot.command('remove_admin', async (ctx) => {
-    if (!isOwner(ctx)) {
-      return ctx.reply(ctx.t('only_owner_remove'));
+    if (!(await isAdminUser(ctx.chat.id))) {
+      return ctx.reply(ctx.t('not_authorized_admin'));
     }
     const target = ctx.message.text.split(' ').slice(1).join(' ').trim();
     if (!target) return ctx.reply(ctx.t('usage_remove_admin'));
@@ -455,7 +465,13 @@ export function getBot() {
     const adminLang = await getAdminLanguage(ctx.chat.id);
     const pool = getPool();
 
-    // Resolve confirmed pickup time as a Phnom Penh wall-clock string
+    // Resolve confirmed pickup time.
+    // For "+X min" we add the minutes to the CUSTOMER's requested pickup time
+    // (orders.pickup_time), so the admin can pad the customer's chosen time
+    // (e.g. customer wants 11:00 → +15 gives 11:15). If the order is ASAP
+    // (no requested time) we fall back to "now + X min" in Phnom Penh time.
+    // Guard: if the padded time would already be in the past, fall back to
+    // "now + X min" so we never confirm a pickup time that has already passed.
     let confirmedTime = null;
     if (option === 'use_requested') {
       const res = await pool.query(
@@ -465,7 +481,18 @@ export function getBot() {
       confirmedTime = res.rows.length ? res.rows[0].pickup_time : null;
     } else {
       const minutes = Number(option);
-      confirmedTime = phnomPenhWallClockString(new Date(Date.now() + minutes * 60 * 1000));
+      const res = await pool.query(
+        `SELECT
+           CASE
+             WHEN pickup_time IS NOT NULL
+                  AND pickup_time + ($1::int || ' minutes')::interval > (now() AT TIME ZONE 'Asia/Phnom_Penh')
+               THEN to_char(pickup_time + ($1::int || ' minutes')::interval, 'YYYY-MM-DD HH24:MI:SS')
+             ELSE to_char((now() AT TIME ZONE 'Asia/Phnom_Penh') + ($1::int || ' minutes')::interval, 'YYYY-MM-DD HH24:MI:SS')
+           END AS confirmed_time
+         FROM orders WHERE id = $2`,
+        [minutes, orderId],
+      );
+      confirmedTime = res.rows.length ? res.rows[0].confirmed_time : null;
     }
 
     const result = await pool.query(

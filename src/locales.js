@@ -31,6 +31,18 @@ export const locales = {
       'Use Open Menu to place an order. Use My Orders to check your orders.\n\n' +
       'When the bot asks for a cancellation reason, reply with your reason. Send /skip if you do not want to provide one.',
 
+    // ── Admin help (shown to admins/owner) ──
+    help_admin:
+      'Admin commands:\n' +
+      '/admin — Open the admin panel (orders & menu)\n' +
+      '/admins — List all admins\n' +
+      '/add_admin <@username or chat_id> — Add a new admin\n' +
+      '/remove_admin <@username or chat_id> — Remove an admin\n' +
+      '/admin_language — Change the admin panel language\n' +
+      '/language — Change your bot language\n' +
+      '/menu — Open the customer menu\n' +
+      '/help — Show this help',
+
     // ── Admin panel ──
     not_authorized_admin: 'You are not authorized to access the admin panel.',
     admin_panel_prompt: 'Open the admin panel to manage orders and menu:',
@@ -256,6 +268,18 @@ export const locales = {
       'ប្រើ បើកម៉ឺនុយ ដើម្បីបញ្ជាទិញ។ ប្រើ ការបញ្ជាទិញរបស់ខ្ញុំ ដើម្បីពិនិត្យការបញ្ជាទិញរបស់អ្នក។\n\n' +
       'នៅពេល bot សួររកមូលហេតុនៃការបោះបង់ សូមឆ្លើយតបជាមួយមូលហេតុរបស់អ្នក។ ផ្ញើ /skip ប្រសិនបើអ្នកមិនចង់ផ្តល់ហេតុផល។',
 
+    // ── Admin help (shown to admins/owner) ──
+    help_admin:
+      'ពាក្យបញ្ជាសម្រាប់អ្នកគ្រប់គ្រង៖\n' +
+      '/admin — បើកផ្ទាំងគ្រប់គ្រង (ការបញ្ជាទិញ និងម៉ឺនុយ)\n' +
+      '/admins — បញ្ជីអ្នកគ្រប់គ្រងទាំងអស់\n' +
+      '/add_admin <@username ឬ chat_id> — បន្ថែមអ្នកគ្រប់គ្រងថ្មី\n' +
+      '/remove_admin <@username ឬ chat_id> — ដកអ្នកគ្រប់គ្រង\n' +
+      '/admin_language — ផ្លាស់ប្តូរភាសាផ្ទាំងគ្រប់គ្រង\n' +
+      '/language — ផ្លាស់ប្តូរភាសាបុត\n' +
+      '/menu — បើកម៉ឺនុយអតិថិជន\n' +
+      '/help — បង្ហាញជំនួយនេះ',
+
     not_authorized_admin: 'អ្នកមិនត្រូវបានអនុញ្ញាតឱ្យចូលប្រើផ្ទាំងគ្រប់គ្រងទេ។',
     admin_panel_prompt: 'បើកផ្ទាំងគ្រប់គ្រងដើម្បីគ្រប់គ្រងការបញ្ជាទិញ និងម៉ឺនុយ៖',
     admin_panel_button: '\u{1F527} បើកផ្ទាំងគ្រប់គ្រង',
@@ -455,6 +479,18 @@ export const locales = {
     help_text:
       '使用"打开菜单"下单。使用"我的订单"查看您的订单。\n\n' +
       '当机器人询问取消原因时，请回复您的原因。如果您不想提供原因，请发送 /skip。',
+
+    // ── Admin help (shown to admins/owner) ──
+    help_admin:
+      '管理员命令：\n' +
+      '/admin — 打开管理面板（订单和菜单）\n' +
+      '/admins — 列出所有管理员\n' +
+      '/add_admin <@username 或 chat_id> — 添加新管理员\n' +
+      '/remove_admin <@username 或 chat_id> — 移除管理员\n' +
+      '/admin_language — 更改管理面板语言\n' +
+      '/language — 更改您的机器人语言\n' +
+      '/menu — 打开客户菜单\n' +
+      '/help — 显示此帮助',
 
     not_authorized_admin: '您无权访问管理面板。',
     admin_panel_prompt: '打开管理面板以管理订单和菜单：',
